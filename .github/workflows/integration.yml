@@ -1,0 +1,28 @@
+on:
+  push:
+  pull_request:
+
+name: Integration
+
+jobs:
+  coding-style:
+    name: Check coding-style
+    runs-on: ubuntu-latest
+    container:
+      image:  ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Check Coding Style
+        run:  check.sh $(pwd) $(pwd)
+      - name: Report banana result
+        run:  |
+          NB_ERROR=$(cat coding-style-reports.log | wc -l)
+          if [ $NB_ERROR -gt 0 ]; then
+            ERRORS=$(cat coding-style-reports.log);
+            echo "Banana found $NB_ERROR error(s)"
+            echo "$ERRORS"
+            exit 1
+          fi
+            echo "Everything is good ! Keep on coding !"
+            exit 0
