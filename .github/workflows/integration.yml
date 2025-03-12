@@ -40,7 +40,7 @@ jobs:
     name: Run Tests
     runs-on:  ubuntu-latest
     container:
-      image: ghcr.io/epitech/epitest-docker:latest
+      image: ghcr.io/epitechcontent/epitest-docker:latest
     needs:  [compile, coding-style]
     steps:
       - name: Checkout Repository
